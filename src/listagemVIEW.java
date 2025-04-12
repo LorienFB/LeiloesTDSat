@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -12,6 +13,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         initComponents();
         listarProdutos();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -211,6 +213,7 @@ public class listagemVIEW extends javax.swing.JFrame {
                 });
             }
         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Erro ao listar produtos: " + e);
         }
     
     }
