@@ -2,8 +2,6 @@
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-
 public class vendasVIEW extends javax.swing.JFrame {
 
     /**
@@ -13,28 +11,28 @@ public class vendasVIEW extends javax.swing.JFrame {
         initComponents();
         listarProdutosVendidos();
     }
-    
-     private void listarProdutosVendidos() {
-    try {
-        ProdutosDAO produtosDAO = new ProdutosDAO();
-        ArrayList<ProdutosDTO> lista = produtosDAO.listarProdutosVendidos();
 
-        DefaultTableModel model = (DefaultTableModel) tblListaVendas.getModel(); // nome certo da tabela
-        model.setRowCount(0);
+    private void listarProdutosVendidos() {
+        try {
+            ProdutosDAO produtosDAO = new ProdutosDAO();
+            ArrayList<ProdutosDTO> lista = produtosDAO.listarProdutosVendidos();
 
-        for (ProdutosDTO produto : lista) {
-            model.addRow(new Object[]{
-                produto.getId(),
-                produto.getNome(),
-                produto.getValor(),
-                produto.getStatus()
-            });
+            DefaultTableModel model = (DefaultTableModel) tblListaVendas.getModel();
+            model.setRowCount(0);
+
+            for (ProdutosDTO produto : lista) {
+                model.addRow(new Object[]{
+                    produto.getId(),
+                    produto.getNome(),
+                    produto.getValor(),
+                    produto.getStatus()
+                });
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar produtos vendidos: " + e);
         }
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Erro ao listar produtos vendidos: " + e);
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,6 +87,11 @@ public class vendasVIEW extends javax.swing.JFrame {
 
         btnVoltarVendas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnVoltarVendas.setText("Voltar");
+        btnVoltarVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarVendasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,6 +127,12 @@ public class vendasVIEW extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVoltarVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarVendasActionPerformed
+        listagemVIEW lista = new listagemVIEW();
+        lista.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVoltarVendasActionPerformed
 
     /**
      * @param args the command line arguments
