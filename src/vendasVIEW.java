@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
-/**
- *
- * @author lorie
- */
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
 public class vendasVIEW extends javax.swing.JFrame {
 
     /**
@@ -14,7 +11,30 @@ public class vendasVIEW extends javax.swing.JFrame {
      */
     public vendasVIEW() {
         initComponents();
+        listarProdutosVendidos();
     }
+    
+     private void listarProdutosVendidos() {
+    try {
+        ProdutosDAO produtosDAO = new ProdutosDAO();
+        ArrayList<ProdutosDTO> lista = produtosDAO.listarProdutosVendidos();
+
+        DefaultTableModel model = (DefaultTableModel) tblListaVendas.getModel(); // nome certo da tabela
+        model.setRowCount(0);
+
+        for (ProdutosDTO produto : lista) {
+            model.addRow(new Object[]{
+                produto.getId(),
+                produto.getNome(),
+                produto.getValor(),
+                produto.getStatus()
+            });
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Erro ao listar produtos vendidos: " + e);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
